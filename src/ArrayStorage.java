@@ -3,63 +3,59 @@
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
+    private int size = 0;
+
     void clear() {
-        int lastResume = size();
-        for (int i = 0; i < lastResume; i++) {
+        for (int i = 0; i < size; i++) {
             storage[i] = null;
+            size = 0;
         }
     }
 
     void save(Resume r) {
-        storage[size()] = r;
+        storage[size] = r;
+        size += 1;
     }
 
     Resume get(String uuid) {
-        int index = 0;
-        while (index < size()) {
-            if (equal(uuid, index)) {
-                return storage[index];
+        for (int i = 0; i < size; i++) {
+            if (equal(uuid, i)) {
+                return storage[i];
             }
-            index += 1;
         }
         return null;
     }
 
-    private boolean equal (String uuid, int index) {
+    private boolean equal(String uuid, int index) {
         return (uuid.equals(storage[index].uuid));
     }
 
     void delete(String uuid) {
         int index = 0;
-        Resume findElement = null;
-        int size = size();
-        while (index < size() && !(equal(uuid, index))) {
-            if (equal(uuid, index)) {
-                storage[index] = null;
+        for (int i = 0; i < size; i++) {
+            if (equal(uuid, i)) {
+                storage[i] = null;
+                index = i;
             }
-            index += 1;
         }
-        for (; index < size; index++) {
-            storage[index] = storage[index+1];
+        for (int i = index; i < size; i++) {
+            storage[i] = storage[i + 1];
         }
+        size -= 1;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        Resume[] newStorage = new Resume[size()];
-        for(int i = 0; i < size(); i++) {
-            newStorage[i] = storage[i];
+        Resume[] resumes = new Resume[size()];
+        for (int i = 0; i < size(); i++) {
+            resumes[i] = storage[i];
         }
-        return newStorage;
+        return resumes;
     }
 
     int size() {
-        int index = 0;
-        while (storage[index] != null) {
-            index += 1;
-        }
-        return index;
+        return size;
     }
 }
