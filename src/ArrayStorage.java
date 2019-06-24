@@ -1,61 +1,73 @@
+import java.util.Arrays;
+
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10000];
     private int size = 0;
 
-    void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+    public void clear() {
+        Arrays.fill(storage, 0, size - 1, null);
         size = 0;
     }
 
-    void save(Resume r) {
-        storage[size] = r;
-        size += 1;
-    }
-
-    Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (equal(uuid, i)) {
-                return storage[i];
+    public void save(Resume r) {
+        if (size < 10000) {
+            if (!isPresent(r.getUuid())) {
+                storage[size] = r;
+                size++;
+            } else {
+                System.out.println("Error, this resume is already present in the storage");
             }
+        } else {
+            System.out.println("Error, this storage is already complete");
         }
-        return null;
     }
 
-    private boolean equal(String uuid, int index) {
-        return (uuid.equals(storage[index].uuid));
+    public void update(Resume r) {
+        if (isPresent(r.getUuid())) {
+            storage[findIndex(r.getUuid())] = r;
+        } else {
+            System.out.println("Error, this resume is not already present");
+        }
     }
 
-    void delete(String uuid) {
-        int index = 0;
-        for (int i = 0; i < size; i++) {
-            if (equal(uuid, i)) {
-                storage[i] = null;
-                index = i;
-            }
+    public Resume get(String uuid) {
+        return ((isPresent(uuid)) ? storage[findIndex(uuid)] : null);
+    }
+
+    public void delete(String uuid) {
+        if (isPresent(uuid)) {
+            storage[findIndex(uuid)] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+        } else {
+            System.out.println("Error, this resume is not already present");
         }
-        for (int i = index; i < size; i++) {
-            storage[i] = storage[i + 1];
-        }
-        size -= 1;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
-        Resume[] resumes = new Resume[size()];
-        for (int i = 0; i < size(); i++) {
-            resumes[i] = storage[i];
-        }
-        return resumes;
+    public Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
     }
 
-    int size() {
+    public int size() {
         return size;
+    }
+
+    private boolean isPresent(String uuid) {
+        return (findIndex(uuid) != -1);
+    }
+
+    public int findIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (uuid.equals(storage[i].getUuid())) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
