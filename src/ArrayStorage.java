@@ -44,8 +44,9 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        if (findIndex(uuid) != -1) {
-            storage[findIndex(uuid)] = storage[size - 1];
+        int index = findIndex(uuid);
+        if (index != -1) {
+            storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         } else {
