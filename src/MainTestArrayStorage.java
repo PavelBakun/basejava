@@ -11,14 +11,10 @@ public class MainTestArrayStorage {
     static final SortedArrayStorage SORTED_ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
-        Resume r1 = new Resume();
-        r1.setUuid("uuid1");
-        Resume r2 = new Resume();
-        r2.setUuid("uuid2");
-        Resume r3 = new Resume();
-        r3.setUuid("uuid3");
-        Resume r0 = new Resume();
-        r0.setUuid("uuid0");
+        Resume r1 = new Resume("uuid1");
+        Resume r2 = new Resume("uuid2");
+        Resume r3 = new Resume("uuid3");
+        Resume r0 = new Resume("uuid0");
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
@@ -45,15 +41,14 @@ public class MainTestArrayStorage {
         SORTED_ARRAY_STORAGE.delete(r1.getUuid());
         printAll(SORTED_ARRAY_STORAGE);
 
-        r2.setUuid("uuid20");
+
         ARRAY_STORAGE.update(r2);
         SORTED_ARRAY_STORAGE.update(r2);
         System.out.println("Update r2 from ArrayStorage: " + ARRAY_STORAGE.get(r2.getUuid()));
         System.out.println("Update r2 from SortedArrayStorage: " + SORTED_ARRAY_STORAGE.get(r2.getUuid()));
 
         System.out.println("Update r4: ");
-        Resume r4 = new Resume();
-        r4.setUuid("uuid4");
+        Resume r4 = new Resume("uuid4");
         ARRAY_STORAGE.update(r4);
         SORTED_ARRAY_STORAGE.update(r4);
 
