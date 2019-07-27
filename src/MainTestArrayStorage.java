@@ -1,5 +1,6 @@
 import model.Resume;
 import storage.ArrayStorage;
+import storage.MapStorage;
 import storage.SortedArrayStorage;
 import storage.Storage;
 
@@ -7,8 +8,9 @@ import storage.Storage;
  * Test for your ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
-    static final SortedArrayStorage SORTED_ARRAY_STORAGE = new SortedArrayStorage();
+    private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private static final SortedArrayStorage SORTED_ARRAY_STORAGE = new SortedArrayStorage();
+    private static final MapStorage MAP_STORAGE = new MapStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1");
@@ -24,11 +26,17 @@ public class MainTestArrayStorage {
         SORTED_ARRAY_STORAGE.save(r2);
         SORTED_ARRAY_STORAGE.save(r3);
         SORTED_ARRAY_STORAGE.save(r0);
+        MAP_STORAGE.save(r1);
+        MAP_STORAGE.save(r2);
+        MAP_STORAGE.save(r3);
+        MAP_STORAGE.save(r0);
 
         System.out.println("Get r1 from ArrayStorage: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Get r1 from SortedArrayStorage: " + SORTED_ARRAY_STORAGE.get(r1.getUuid()));
+        System.out.println("Get r1 from MapStorage: " + MAP_STORAGE.get(r1.getUuid()));
         System.out.println("Size of ArrayStorage: " + ARRAY_STORAGE.size());
         System.out.println("Size of SortedArrayStorage: " + SORTED_ARRAY_STORAGE.size());
+        System.out.println("Size of MapStorage: " + MAP_STORAGE.size());
 
         System.out.println("Get from ArrayStorage: " + ARRAY_STORAGE.get("dummy"));
         System.out.println("Get from SortedArrayStorage: " + SORTED_ARRAY_STORAGE.get("dummy"));
