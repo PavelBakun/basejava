@@ -6,14 +6,11 @@ import model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
+
     protected static final int STORAGE_LIMIT = 10_000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
-
-    public int size() {
-        return size;
-    }
 
     @Override
     public void clear() {
@@ -27,30 +24,45 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume doGet(int index, String uuid) {
+    public int size() {
+        return size;
+    }
+
+    @Override
+    protected Resume doGet(Object searchKey) {
+        int index = (int) searchKey;
         return storage[index];
     }
 
     @Override
-    protected void doUpdate(int index, Resume r) {
+    protected void doUpdate(Object searchKey, Resume r) {
+        int index = (int) searchKey;
         storage[index] = r;
     }
 
     @Override
-    protected void doSave(Resume r, int index) {
+    protected void doSave(Object searchKey, Resume r) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         } else {
+            int index = (int) searchKey;
             insertElement(r, index);
             size++;
         }
     }
 
     @Override
-    protected void doDelete(int index, String uuid) {
+    protected void doDelete(Object searchKey, String uuid) {
+        int index = (int) searchKey;
         fillDeletedElement(index);
         storage[size - 1] = null;
         size--;
+    }
+
+    @Override
+    protected boolean isContainSearchKey(Object searchKey) {
+        int index = (int) searchKey;
+        return (index >= 0);
     }
 
     protected abstract void fillDeletedElement(int index);

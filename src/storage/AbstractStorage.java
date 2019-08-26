@@ -8,59 +8,48 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public Resume get(String uuid) {
-        int index = checkNotContain(uuid);
-        return doGet(index, uuid);
+        Object searchKey = checkNotContain(uuid);
+        return doGet(searchKey);
     }
 
     @Override
     public void update(Resume r) {
-        int index = checkNotContain(r.getUuid());
-        doUpdate(index, r);
+        Object searchKey = checkNotContain(r.getUuid());
+        doUpdate(searchKey, r);
     }
 
     @Override
     public void save(Resume r) {
-        int index = checkContain(r.getUuid());
-        doSave(r, index);
+        Object searchKey = getSearchKey(r.getUuid());
+        if (isContainSearchKey(searchKey)) {
+            throw new ExistStorageException(r.getUuid());
+        }
+        doSave(searchKey, r);
     }
 
     @Override
     public void delete(String uuid) {
-        int index = checkNotContain(uuid);
-        doDelete(index, uuid);
+        Object searchKey = checkNotContain(uuid);
+        doDelete(searchKey, uuid);
     }
 
-    protected int getIndex(String uuid) {
-        return 0;
-    }
-
-    protected Resume doGet(int index, String uuid) {
-        return null;
-    }
-
-    protected int checkNotContain(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
+    protected Object checkNotContain(String uuid) {
+        Object searchKey = getSearchKey(uuid);
+        if (!isContainSearchKey(searchKey)) {
             throw new NotExistStorageException(uuid);
         }
-        return index;
+        return searchKey;
     }
 
-    protected int checkContain(String uuid) {
-        int index = getIndex(uuid);
-        if (index >= 0) {
-            throw new ExistStorageException(uuid);
-        }
-        return index;
-    }
+    protected abstract Resume doGet(Object searchKey);
 
-    protected void doUpdate(int index, Resume r) {
+    protected abstract void doUpdate(Object searchKey, Resume r);
 
-    }
+    protected abstract void doSave(Object searchKey, Resume r);
 
-    protected void doSave(Resume r, int index) {
-    }
+    protected abstract void doDelete(Object searchKey, String uuid);
 
-    protected void doDelete(int index, String uuid) {
-    }
+    protected abstract Object getSearchKey(String uuid);
+
+    protected abstract boolean isContainSearchKey(Object searchKey);
 }
