@@ -24,7 +24,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume doGet(int index) {
+    protected Resume doGet(int index, String uuid) {
         return listStorage.get(index);
     }
 
@@ -39,7 +39,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void doDelete(int index) {
+    public void doDelete(int index, String uudi) {
         listStorage.remove(listStorage.get(index));
     }
 
