@@ -30,7 +30,7 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public void delete(String uuid) {
         Object searchKey = checkNotContain(uuid);
-        doDelete(searchKey, uuid);
+        doDelete(searchKey);
     }
 
     protected Object checkNotContain(String uuid) {
@@ -47,7 +47,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void doSave(Object searchKey, Resume r);
 
-    protected abstract void doDelete(Object searchKey, String uuid);
+    protected abstract void doDelete(Object searchKey);
 
     protected abstract Object getSearchKey(String uuid);
 

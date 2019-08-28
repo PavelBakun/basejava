@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class AbstractStorageTest {
     protected Storage storage;
 
@@ -62,8 +64,14 @@ public class AbstractStorageTest {
 
     @Test
     public void getAll() throws Exception {
-        Assert.assertEquals(3, storage.getAll().length);
-        Assert.assertArrayEquals((new Resume[]{RESUME_1, RESUME_2, RESUME_3}), storage.getAll());
+        Resume[] expectedArray = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
+        Resume[] actualArray = storage.getAll();
+        Assert.assertEquals(3, actualArray.length);
+        for (Resume r : actualArray) {
+            Assert.assertTrue(r.equals(expectedArray[0]) || r.equals(expectedArray[1]) || r.equals(expectedArray[2]));
+            Assert.assertFalse(r.equals(expectedArray[0]) && r.equals(expectedArray[1]) && r.equals(expectedArray[2]));
+        }
+        //Assert.assertArrayEquals((new Resume[]{RESUME_1, RESUME_2, RESUME_3}), storage.getAll());
     }
 
     @Test(expected = NotExistStorageException.class)

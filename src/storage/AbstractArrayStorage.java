@@ -52,7 +52,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doDelete(Object searchKey, String uuid) {
+    protected void doDelete(Object searchKey) {
         int index = (int) searchKey;
         fillDeletedElement(index);
         storage[size - 1] = null;
