@@ -3,64 +3,60 @@ package storage;
 import model.Resume;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListStorage extends AbstractStorage {
-    private List<Resume> listStorage = new ArrayList<>();
+    private List<Resume> list = new ArrayList<>();
 
     @Override
-    public void clear() {
-        listStorage.clear();
+    protected Integer getSearchKey(String uuid) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return null;
     }
 
     @Override
-    public Resume[] getAll() {
-        return listStorage.toArray(new Resume[0]);
+    protected boolean isExist(Object searchKey) {
+        return searchKey != null;
     }
 
     @Override
-    public int size() {
-        return listStorage.size();
+    protected void doUpdate(Resume r, Object searchKey) {
+        list.set((Integer) searchKey, r);
+    }
+
+    @Override
+    protected void doSave(Resume r, Object searchKey) {
+        list.add(r);
     }
 
     @Override
     protected Resume doGet(Object searchKey) {
-        int index = (int) searchKey;
-        return listStorage.get(index);
+        return list.get((Integer) searchKey);
     }
 
     @Override
-    protected void doUpdate(Object searchKey, Resume r) {
-        int index = (int) searchKey;
-        listStorage.set(index, r);
+    protected void doDelete(Object searchKey) {
+        list.remove(((Integer) searchKey).intValue());
     }
 
     @Override
-    protected void doSave(Object searchKey, Resume r) {
-        listStorage.add(r);
+    public void clear() {
+        list.clear();
     }
 
     @Override
-    public void doDelete(Object searchKey) {
-        int index = (int) searchKey;
-        listStorage.remove(index);
+    public Resume[] getAll() {
+        return list.toArray(new Resume[list.size()]);
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
-        int index = 0;
-        for (Resume resume : listStorage) {
-            if (uuid.equals(resume.getUuid())) {
-                return index;
-            }
-            index++;
-        }
-        return -1;
-    }
-
-    @Override
-    protected boolean isContainSearchKey(Object searchKey) {
-        int index = (int) searchKey;
-        return (index >= 0);
+    public int size() {
+        return list.size();
     }
 }

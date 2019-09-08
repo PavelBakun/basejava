@@ -4,6 +4,7 @@ import storage.ArrayStorage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 /**
  * Test for ru.javawebinar.basejava.storage.ArrayStorage
@@ -33,12 +34,12 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume(uuid);
+                    r = new Resume(uuid,"Name");
                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
                 case "update":
-                    r = new Resume(uuid);
+                    r = new Resume(uuid, "Name");
                     ARRAY_STORAGE.update(r);
                     printAll();
                     break;

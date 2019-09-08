@@ -1,6 +1,6 @@
 import model.Resume;
 import storage.ArrayStorage;
-import storage.MapStorage;
+import storage.MapUuidStorage;
 import storage.SortedArrayStorage;
 import storage.Storage;
 
@@ -10,13 +10,13 @@ import storage.Storage;
 public class MainTestArrayStorage {
     private static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
     private static final SortedArrayStorage SORTED_ARRAY_STORAGE = new SortedArrayStorage();
-    private static final MapStorage MAP_STORAGE = new MapStorage();
+    private static final MapUuidStorage MAP_STORAGE = new MapUuidStorage();
 
     public static void main(String[] args) {
-        Resume r1 = new Resume("uuid1");
-        Resume r2 = new Resume("uuid2");
-        Resume r3 = new Resume("uuid3");
-        Resume r0 = new Resume("uuid0");
+        Resume r1 = new Resume("uuid1", "Ivan");
+        Resume r2 = new Resume("uuid2", "Pavel");
+        Resume r3 = new Resume("uuid3", "Alena");
+        Resume r0 = new Resume("uuid0", "Ira");
 
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
@@ -56,7 +56,7 @@ public class MainTestArrayStorage {
         System.out.println("Update r2 from SortedArrayStorage: " + SORTED_ARRAY_STORAGE.get(r2.getUuid()));
 
         System.out.println("Update r4: ");
-        Resume r4 = new Resume("uuid4");
+        Resume r4 = new Resume("uuid4", "failName");
         ARRAY_STORAGE.update(r4);
         SORTED_ARRAY_STORAGE.update(r4);
 
