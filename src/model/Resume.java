@@ -1,9 +1,8 @@
 package model;
 
-import java.util.Objects;
 import java.util.UUID;
 
-public class Resume{
+public class Resume implements Comparable<Resume> {
 
     // Unique identifier
     private final String uuid;
@@ -49,5 +48,10 @@ public class Resume{
     @Override
     public String toString() {
         return uuid;
+    }
+
+    @Override
+    public int compareTo(Resume r) {
+        return (!fullName.equals(r.getFullName())) ? fullName.compareTo(r.getFullName()) : uuid.compareTo(r.getUuid());
     }
 }

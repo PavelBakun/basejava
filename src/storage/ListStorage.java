@@ -3,9 +3,7 @@ package storage;
 import model.Resume;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ListStorage extends AbstractStorage {
     private List<Resume> list = new ArrayList<>();
@@ -50,9 +48,14 @@ public class ListStorage extends AbstractStorage {
         list.clear();
     }
 
+//    @Override
+//    public Resume[] getAll() {
+//        return list.toArray(new Resume[list.size()]);
+//    }
+
     @Override
-    public Resume[] getAll() {
-        return list.toArray(new Resume[list.size()]);
+    public List<Resume> returnListFromStorage() {
+        return list;
     }
 
     @Override
