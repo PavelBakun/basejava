@@ -13,27 +13,27 @@ public class MainTestArrayStorage {
     private static final MapUuidStorage MAP_STORAGE = new MapUuidStorage();
 
     public static void main(String[] args) {
-        Resume r1 = new Resume("uuid1", "Ivan");
-        Resume r2 = new Resume("uuid2", "Pavel");
-        Resume r3 = new Resume("uuid3", "Alena");
-        Resume r0 = new Resume("uuid0", "Ira");
+        Resume resume1 = new Resume("uuid1", "Ivan");
+        Resume resume2 = new Resume("uuid2", "Pavel");
+        Resume resume3 = new Resume("uuid3", "Alena");
+        Resume resume0 = new Resume("uuid0", "Ira");
 
-        ARRAY_STORAGE.save(r1);
-        ARRAY_STORAGE.save(r2);
-        ARRAY_STORAGE.save(r3);
-        ARRAY_STORAGE.save(r0);
-        SORTED_ARRAY_STORAGE.save(r1);
-        SORTED_ARRAY_STORAGE.save(r2);
-        SORTED_ARRAY_STORAGE.save(r3);
-        SORTED_ARRAY_STORAGE.save(r0);
-        MAP_STORAGE.save(r1);
-        MAP_STORAGE.save(r2);
-        MAP_STORAGE.save(r3);
-        MAP_STORAGE.save(r0);
+        ARRAY_STORAGE.save(resume1);
+        ARRAY_STORAGE.save(resume2);
+        ARRAY_STORAGE.save(resume3);
+        ARRAY_STORAGE.save(resume0);
+        SORTED_ARRAY_STORAGE.save(resume1);
+        SORTED_ARRAY_STORAGE.save(resume2);
+        SORTED_ARRAY_STORAGE.save(resume3);
+        SORTED_ARRAY_STORAGE.save(resume0);
+        MAP_STORAGE.save(resume1);
+        MAP_STORAGE.save(resume2);
+        MAP_STORAGE.save(resume3);
+        MAP_STORAGE.save(resume0);
 
-        System.out.println("Get r1 from ArrayStorage: " + ARRAY_STORAGE.get(r1.getUuid()));
-        System.out.println("Get r1 from SortedArrayStorage: " + SORTED_ARRAY_STORAGE.get(r1.getUuid()));
-        System.out.println("Get r1 from MapStorage: " + MAP_STORAGE.get(r1.getUuid()));
+        System.out.println("Get resume1 from ArrayStorage: " + ARRAY_STORAGE.get(resume1.getUuid()));
+        System.out.println("Get resume1 from SortedArrayStorage: " + SORTED_ARRAY_STORAGE.get(resume1.getUuid()));
+        System.out.println("Get resume1 from MapStorage: " + MAP_STORAGE.get(resume1.getUuid()));
         System.out.println("Size of ArrayStorage: " + ARRAY_STORAGE.size());
         System.out.println("Size of SortedArrayStorage: " + SORTED_ARRAY_STORAGE.size());
         System.out.println("Size of MapStorage: " + MAP_STORAGE.size());
@@ -44,21 +44,21 @@ public class MainTestArrayStorage {
         printAll(ARRAY_STORAGE);
         printAll(SORTED_ARRAY_STORAGE);
 
-        ARRAY_STORAGE.delete(r1.getUuid());
+        ARRAY_STORAGE.delete(resume1.getUuid());
         printAll(ARRAY_STORAGE);
-        SORTED_ARRAY_STORAGE.delete(r1.getUuid());
+        SORTED_ARRAY_STORAGE.delete(resume1.getUuid());
         printAll(SORTED_ARRAY_STORAGE);
 
 
-        ARRAY_STORAGE.update(r2);
-        SORTED_ARRAY_STORAGE.update(r2);
-        System.out.println("Update r2 from ArrayStorage: " + ARRAY_STORAGE.get(r2.getUuid()));
-        System.out.println("Update r2 from SortedArrayStorage: " + SORTED_ARRAY_STORAGE.get(r2.getUuid()));
+        ARRAY_STORAGE.update(resume2);
+        SORTED_ARRAY_STORAGE.update(resume2);
+        System.out.println("Update resume2 from ArrayStorage: " + ARRAY_STORAGE.get(resume2.getUuid()));
+        System.out.println("Update resume2 from SortedArrayStorage: " + SORTED_ARRAY_STORAGE.get(resume2.getUuid()));
 
-        System.out.println("Update r4: ");
-        Resume r4 = new Resume("uuid4", "failName");
-        ARRAY_STORAGE.update(r4);
-        SORTED_ARRAY_STORAGE.update(r4);
+        System.out.println("Update resume4: ");
+        Resume resume4 = new Resume("uuid4", "failName");
+        ARRAY_STORAGE.update(resume4);
+        SORTED_ARRAY_STORAGE.update(resume4);
 
         ARRAY_STORAGE.clear();
         printAll(ARRAY_STORAGE);
@@ -71,8 +71,8 @@ public class MainTestArrayStorage {
 
     static void printAll(Storage storage) {
         System.out.println("\nGet All from " + storage);
-        for (Resume r : storage.getAllSorted()) {
-            System.out.println(r);
+        for (Resume resume : storage.getAllSorted()) {
+            System.out.println(resume);
         }
     }
 }

@@ -10,7 +10,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbstractStorageTest {
+public abstract class AbstractStorageTest {
     protected Storage storage;
 
     private static final String UUID_1 = "uuid1";
@@ -63,16 +63,9 @@ public class AbstractStorageTest {
         storage.get(FAIL_UUID);
     }
 
-//    @Test
-//    public void getAll() throws Exception {
-//        Resume[] expectedList = new Resume[] {RESUME_1, RESUME_2, RESUME_3};
-//        Resume[] actualList = storage.getAll();
-//        Assert.assertEquals(expectedList, actualList);
-//    }
-
     @Test
     public void getAllSorted() throws Exception {
-        List<Resume> expectedList = new ArrayList<Resume>();
+        List<Resume> expectedList = new ArrayList<>();
         expectedList.add(RESUME_3); //Alena
         expectedList.add(RESUME_1); //Ivan
         expectedList.add(RESUME_2); //Pavel
